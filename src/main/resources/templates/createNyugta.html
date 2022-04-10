@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="css/utilities.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+   
+    <title>Loruki | Cloud Hosting For Everyone</title>
+ 
+</head>
+<body>
+     <!-- Navbar -->
+     <div class="navbar">
+      <div class="container ">
+           
+          <nav>
+              <ul>
+                  <li><a href="/home">Home</a></li>
+                   
+              </ul>
+          </nav>
+      </div>
+  </div>
+  
+    <!-- Head -->
+    <section class="docs-head bg-primary py-3">
+        <div class="container grid">
+            <div>
+                <h1 class="xl">Create</h1>
+                <p class="lead">
+                    Nyugta készítés
+                </p>
+                <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModal">Nyugta feltöltése</button>
+                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#nyugtaCheck">Nyugta ellenőrzése</button>    
+            </div>
+            <img src="images/docs.png" alt="">
+ 
+        </div>
+    </section>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Nyugta xml feltöltése:</h4>
+          </div>
+          <div class="modal-body">
+            <p>
+                <form action="https://www.szamlazz.hu/szamla/" name="sendForm" method="post" enctype="multipart/form-data">
+                    <input class="btn btn-primary" type="file" name="action-szamla_agent_nyugta_create"><br>
+                    <input type="submit" name="generate" id="generate" class="btn btn-success"  value="Nyugta beküldése">
+                  </form>  
+
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Bezár</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+       <!-- Modal -->
+       <div class="modal fade" id="nyugtaCheck" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Nyugta xml ellenőrzése:</h4>
+            </div>
+            <div class="modal-body">
+              <p>
+                  <form   th:action="@{/uploadFilesTeszt}"    name="checkForm" method="post" enctype="multipart/form-data">
+                      <input class="btn btn-primary" type="file" name="file"><br>
+                      <input type="submit" name="generate" id="generate" class="btn btn-success"  value="Nyugta beküldése">
+                    </form>  
+  
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Bezár</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+  </div>
+    <!-- Docs main -->
+    <section class="docs-main">
+        <div class="container">
+            <div class="card bg-light">
+                
+                <div>
+                    <label class="form-label" for="form3Example4">Pdf letöltés:</label>
+                    <select style="width:30%" id="pdfDownload" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                      <option value="false">Nem</option>
+                      <option value="true">Igen</option>
+                      <option selected value="-">-</option>
+                    </select>
+      
+                  </div>
+                  <div>
+                    <label class="form-label"  for="form3Example4">Fizetési mód:</label>
+                    <select style="width:30%" id="fizmod" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                      <option th:each="item : ${payment}" th:value="${item}" th:text="${item}">option</option>
+                      <option selected value="-">-</option>
+                    </select>
+      
+                  </div>
+                  <div>
+                    <label class="form-label"  for="form3Example4">Pénznem:</label>
+                    <select id="penznem" style="width:30%" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                      <option th:each="c : ${currency}" th:value="${c}" th:text="${c}">option</option>
+                      <option selected value="-">-</option>
+                    </select>
+      
+                  </div>
+                  <div>
+                    <label class="form-label" for="form3Example4">Pdf Sablon:</label>
+                    <select style="width:30%" id="sablon" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                      <option value="A">Normál</option>
+                      <option value="J">Keskeny</option>
+                      <option value="L">Keskeny, logoval</option>
+                      <option selected value="-">-</option>
+                    </select>
+      
+                  </div>
+                  <input type="hidden"  th:attr="user-pwd=${user.password}" id="pwd" readonly th:value="${user.password}"  />
+                  <input type="hidden"    id="agentkey" readonly th:value="${user.szamlaagentkey}"  class="form-control form-control-lg"
+                  placeholder="Enter password" />
+                  <input type="hidden"  id="user-email" readonly th:value="${user.email}" class="form-control form-control-lg"
+                placeholder="Enter password" />
+            </div>
+            <div class="card">
+               
+                  <hr>
+                  <h3>TÉTELEK:</h3><br/>
+                  <table id="tetelek"  class="table" width="100%">
+                    <thead>
+                    <tr>
+                      <td style="width:35%;text-align: center;">megnevezés</td>
+                      <td style="width:10%;text-align: center;">menny.:</td>
+                      <td style="width:10%;text-align: center;">menny.<br/>egység:</td>
+                      <td style="width:10%;text-align: center;">nettó<br/>Egységár</td>
+                      <td style="width:10%;text-align: center;">nettó</td>
+                      <td style="width:10%;text-align: center;">áfakulcs</td>
+                      <td style="width:7%;text-align: center;">áfa</td>
+                      <td style="width:15%;text-align: center;">bruttó</td>
+                      <td>#</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr id="1">
+                      <td><input type="text" class="form-control form-control-sm" name="megnevezes" data-megnevezes-id="1" id='megnevezes1' /></td>
+                      <td><input type="text" class="form-control form-control-sm" name="mennyiseg" data-mennyiseg-id="1" id='mennyiseg1' /></td>
+                      <td  style="text-align: center;"><input type="text" class="form-control form-control-sm" name="mennyisegegyseg" data-mennyisegegyseg-id="1" id='mennyisegegyseg1' /></td>
+                      <td  style="text-align: center;"><input type="text" class="form-control form-control-sm" name="egysegar" data-egysegar-id="1" id='egysegar1'  /></td>
+                      <td><input type="text" class="form-control form-control-sm" name="netto" data-netto-id="1" id='netto1'  /></td>
+                      <td>
+                        <!--<input type="text" name="megnevezes" afakulcs-id='1' style="width:100%" />-->
+                        <select id='afakulcs1'  name="afakulcs" data-afakulcs-id="1" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                          <option th:each="v : ${vatrate}" th:value="${v}" th:text="${v}">option</option>
+                          <option selected value="-">-</option>
+                        </select>
+                      </td>
+                      <td><input type="text" class="form-control form-control-sm" readonly name="afa" data-afa-id="1" id='afa1' /></td>
+                      <td><input type="text" class="form-control form-control-sm"  readonly name="brutto" id='brutto1' data-brutto-id="1"  /></td>
+                      <td>
+                        <a name="plusTetel" class="btn btn-info btn-sm"
+                        tetelbutton-id='1'>+</a>  
+                      </td>
+                    </tr>
+                  </tbody>
+                  
+                  </table>
+                  <hr>
+                  <button type="button" class="btn btn-primary" id="btnCreate">Create</button>
+            </div>
+        </div>
+    
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer bg-dark py-5">
+        <div class="container grid grid-3">
+            <div>
+                <h1>Boldizsár Krisztián
+                </h1>
+                <p>Copyright &copy; 2022</p>
+            </div>
+            <nav>
+                <ul>
+                    
+                </ul>
+            </nav>
+            <div class="social">
+                 
+            </div>
+        </div>
+    </footer>
+  
+ 
+
+
+    <script src="../../jquery.min.js"></script>
+    <script src="../../main.js"></script>
+
+    <script src="../../bootstrap.min.js"></script>
+
+</body>
+</html>
